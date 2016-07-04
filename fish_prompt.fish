@@ -83,13 +83,5 @@ function fish_prompt
   echo -n -s "$bold$orange$username$white at $yellow$hostname$white in $green$cwd"
   git_stuff
   echo
-  if test $CMD_DURATION
-    if test $CMD_DURATION -gt 100
-      set_color yellow
-      echo -n $CMD_DURATION | humanize_duration
-      echo -n "s"
-      echo -n $white "- "
-    end
-  end
   echo -n -s "$bold$white$prompt_color⟩ $reset"
 end
