@@ -84,10 +84,9 @@ function fish_prompt
   git_stuff
   echo
   if test $CMD_DURATION
-    if test $CMD_DURATION -gt (math "1000 * 5")
-      set secs (math "$CMD_DURATION / 1000")
+    if test $CMD_DURATION -gt 100
       set_color yellow
-      echo -n "$secs"
+      echo -n $CMD_DURATION | humanize_duration
       echo -n "s"
       echo -n $white "- "
     end
