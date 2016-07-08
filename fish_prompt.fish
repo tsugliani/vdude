@@ -26,7 +26,7 @@ function glo
   git ll
 end
 
-function cat
+function c
   pygmentize -g "$argv"
 end
 
