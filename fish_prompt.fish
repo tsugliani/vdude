@@ -75,13 +75,27 @@ function fish_prompt
   set -l white (tput setaf 15)
   set -l yellow (tput setaf 136)
 
+  set -l grey1 (tput setaf 240)
+  set -l grey2 (tput setaf 244)
+  set -l grey3 (tput setaf 248)
 
-  set -l cwd (pwd | sed "s:^$HOME:~:")
+  # Simplify directory when in $HOME
+  set -g cwd (pwd | sed "s:^$HOME:~:")
   set -l username (whoami)
   set -l hostname (hostname -s)
+
+  # Modify shell to hide my GVM/GO long directory names...
+  # Anytime I'm in $GOPATH, current working dir shows as 
+  # user at host in ≡ GO/path/to/current
+  # Probably a cleaner way to do this, but I know very little fish syntax
+  if set -q GOPATH
+    if string replace $GOPATH ≡ GO" $PWD" > /dev/null
+      set -g cwd (string replace $GOPATH "≡ GO" $PWD)
+    end
+  end 
 
   echo -n -s "$bold$orange$username$white at $yellow$hostname$white in $green$cwd"
   git_stuff
   echo
-  echo -n -s "$bold$white$prompt_color⟩ $reset"
+  echo -n -s "$bold$white$prompt_color❯ $reset"
 end
